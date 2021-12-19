@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -29,7 +29,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledTooltip,
+  UncontrolledTooltip, ModalBody, ModalFooter, Modal,
 } from "reactstrap";
 import {CABINET_ROUTE, LOGIN_ROUTE} from "../../utils/routes";
 import {Context} from "../../index";
@@ -39,6 +39,10 @@ export default function ExamplesNavbar() {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [collapseOut, setCollapseOut] = React.useState("");
   const [color, setColor] = React.useState("navbar-transparent");
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => setModal(!modal);
+
   React.useEffect(() => {
     window.addEventListener("scroll", changeColor);
     return function cleanup() {
@@ -153,7 +157,7 @@ export default function ExamplesNavbar() {
             </NavItem>
 
             <NavItem>
-              <NavLink tag={Link} to="/">
+              <NavLink onClick={toggleModal}>
                 Have any problems?
               </NavLink>
             </NavItem>
@@ -166,9 +170,46 @@ export default function ExamplesNavbar() {
                 {store.isAuth ? 'Personal cabinet' : <><i className="tim-icons icon-spaceship"/> Try It Just Now!</>}
               </Button>
             </NavItem>
+            {store.isAuth ? (
+                <NavItem style={{color: 'white !important'}}>
+                  <Button
+                      onClick={store.logout}
+                      className="nav-link d-lg-block"
+                      color="primary"
+                  >
+                   Logout
+                  </Button>
+                </NavItem>
+            ) : ''}
           </Nav>
         </Collapse>
       </Container>
+      <Modal isOpen={modal} toggle={toggleModal}>
+        <div className="modal-header">
+          <h5 className="modal-title" id="exampleModalLabel">
+            Contact us
+          </h5>
+          <button
+              type="button"
+              className="close"
+              data-dismiss="modal"
+              aria-hidden="true"
+              onClick={toggleModal}
+          >
+            <i className="tim-icons icon-simple-remove" />
+          </button>
+        </div>
+        <ModalBody>
+          <p>
+            If you have any problems you can contact support
+          </p>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggleModal}>
+            Ok
+          </Button>
+        </ModalFooter>
+      </Modal>
     </Navbar>
   );
 }

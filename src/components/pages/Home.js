@@ -404,8 +404,8 @@ const Home = () => {
                                         </Row>
                                         <Row>
                                             <ListGroup>
-                                                <ListGroupItem>50 messages</ListGroupItem>
-                                                <ListGroupItem>100 emails</ListGroupItem>
+                                                <ListGroupItem>Up to 10000$</ListGroupItem>
+                                                <ListGroupItem>1 merchant</ListGroupItem>
                                                 <ListGroupItem>24/7 Support</ListGroupItem>
                                             </ListGroup>
                                         </Row>
@@ -436,8 +436,8 @@ const Home = () => {
                                         </Row>
                                         <Row>
                                             <ListGroup>
-                                                <ListGroupItem>150 messages</ListGroupItem>
-                                                <ListGroupItem>1000 emails</ListGroupItem>
+                                                <ListGroupItem>Up to 1000000$</ListGroupItem>
+                                                <ListGroupItem>50 merchants</ListGroupItem>
                                                 <ListGroupItem>24/7 Support</ListGroupItem>
                                             </ListGroup>
                                         </Row>
@@ -468,8 +468,8 @@ const Home = () => {
                                         </Row>
                                         <Row>
                                             <ListGroup>
-                                                <ListGroupItem>350 messages</ListGroupItem>
-                                                <ListGroupItem>10K emails</ListGroupItem>
+                                                <ListGroupItem>Up to ∞$</ListGroupItem>
+                                                <ListGroupItem>∞ merchants</ListGroupItem>
                                                 <ListGroupItem>24/7 Support</ListGroupItem>
                                             </ListGroup>
                                         </Row>
