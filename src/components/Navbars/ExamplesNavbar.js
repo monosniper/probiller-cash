@@ -33,8 +33,9 @@ import {
 } from "reactstrap";
 import {CABINET_ROUTE, LOGIN_ROUTE} from "../../utils/routes";
 import {Context} from "../../index";
+import {observer} from "mobx-react-lite";
 
-export default function ExamplesNavbar() {
+const ExamplesNavbar = () => {
   const {store} = useContext(Context);
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [collapseOut, setCollapseOut] = React.useState("");
@@ -173,7 +174,7 @@ export default function ExamplesNavbar() {
             {store.isAuth ? (
                 <NavItem style={{color: 'white !important'}}>
                   <Button
-                      onClick={store.logout}
+                      onClick={() => store.logout()}
                       className="nav-link d-lg-block"
                       color="primary"
                   >
@@ -213,3 +214,5 @@ export default function ExamplesNavbar() {
     </Navbar>
   );
 }
+
+export default observer(ExamplesNavbar);
