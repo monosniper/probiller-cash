@@ -30,13 +30,19 @@ $lime: #00f2c3;
 
     &-status {
       &.success {
-        color: $lime;
+        i {
+          color: $lime;
+        }
       }
       &.failed {
-        color: red;
+        i {
+          color: red;
+        }
       }
       &.pending {
-        color: gold;
+        i {
+          color: gold;
+        }
       }
     }
 
