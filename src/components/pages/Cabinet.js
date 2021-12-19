@@ -237,7 +237,7 @@ const Cabinet = () => {
                                                     }}
                                                     href="#pablo"
                                                 >
-                                                    Cards ({store.merchant.name === 'Makao777' ? '24' : '17 361'})
+                                                    Cards ({store.merchant.name === 'Makao777' ? '24' : '23 764'})
                                                 </NavLink>
                                             </NavItem>
                                         </Nav>
