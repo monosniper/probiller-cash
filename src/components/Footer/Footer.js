@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -26,11 +26,15 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledTooltip,
+  UncontrolledTooltip, ModalBody, ModalFooter, Modal,
 } from "reactstrap";
 import {CABINET_ROUTE, LOGIN_ROUTE, HOME_ROUTE} from "../../utils/routes";
+import {Context} from "../../index";
+import {observer} from "mobx-react-lite";
 
-export default function Footer() {
+const Footer = () => {
+  const {store} = useContext(Context);
+  const toggleModal = () => store.setRegisterModal(!store.registerModal);
   return (
     <footer className="footer">
       <Container>
@@ -51,7 +55,7 @@ export default function Footer() {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to={"#"} tag={Link}>
+                <NavLink to={"#"} onClick={toggleModal}>
                   Register
                 </NavLink>
               </NavItem>
@@ -65,18 +69,18 @@ export default function Footer() {
           <Col md="3">
             <Nav>
               <NavItem>
-                <NavLink href="#">
+                <NavLink href="https://www.probiller.com/contact-us/">
                   Contact Us
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">
+                <NavLink href="https://www.probiller.com/about/">
                   About Us
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">
-                  Blog
+                <NavLink href="https://www.probiller.com/security/">
+                  Payment Security
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -92,7 +96,7 @@ export default function Footer() {
               <Button
                 className="btn-icon btn-neutral btn-round btn-simple"
                 color="default"
-                href="#"
+                href={process.env.REACT_APP_TWITTER_LINK}
                 id="tooltip622135962"
                 target="_blank"
               >
@@ -104,7 +108,7 @@ export default function Footer() {
               <Button
                 className="btn-icon btn-neutral btn-round btn-simple"
                 color="default"
-                href="#"
+                href={process.env.REACT_APP_FACEBOOK_LINK}
                 id="tooltip230450801"
                 target="_blank"
               >
@@ -116,11 +120,11 @@ export default function Footer() {
               <Button
                 className="btn-icon btn-neutral btn-round btn-simple"
                 color="default"
-                href="#"
+                href={process.env.REACT_APP_INSTAGRAMM_LINK}
                 id="tooltip318450378"
                 target="_blank"
               >
-                <i className="fab fa-dribbble" />
+                <i className="fab fa-instagram" />
               </Button>
               <UncontrolledTooltip delay={0} target="tooltip318450378">
                 Follow us
@@ -132,3 +136,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default observer(Footer);

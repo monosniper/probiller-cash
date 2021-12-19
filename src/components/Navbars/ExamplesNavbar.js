@@ -118,7 +118,7 @@ export default function ExamplesNavbar() {
             <NavItem className="p-0">
               <NavLink
                 data-placement="bottom"
-                href="#"
+                href={process.env.REACT_APP_TWITTER_LINK}
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Follow us on Twitter"
@@ -130,7 +130,7 @@ export default function ExamplesNavbar() {
             <NavItem className="p-0">
               <NavLink
                 data-placement="bottom"
-                href="#"
+                href={process.env.REACT_APP_FACEBOOK_LINK}
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Like us on Facebook"
@@ -142,7 +142,7 @@ export default function ExamplesNavbar() {
             <NavItem className="p-0">
               <NavLink
                 data-placement="bottom"
-                href="#"
+                href={process.env.REACT_APP_INSTAGRAMM_LINK}
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Follow us on Instagram"

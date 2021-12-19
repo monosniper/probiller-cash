@@ -9,6 +9,7 @@ export default class Store {
     user = {};
     isAuth = true;
     isLoading = false;
+    registerModal = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -24,6 +25,10 @@ export default class Store {
 
     setUser(user) {
         this.user = user;
+    }
+
+    setRegisterModal(bool) {
+        this.registerModal = bool;
     }
 
     async makeTransaction(amount, status, onSuccess, onError) {

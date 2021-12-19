@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import PageHeader from "../PageHeader/PageHeader.js";
 import {
     Button,
@@ -10,7 +10,7 @@ import {
     Col,
     Container,
     ListGroup,
-    ListGroupItem,
+    ListGroupItem, Modal, ModalBody, ModalFooter,
     Row
 } from "reactstrap";
 
@@ -19,8 +19,12 @@ import ExamplesNavbar from "../Navbars/ExamplesNavbar.js";
 import Footer from "../Footer/Footer.js";
 
 import bigChartData from "../../variables/charts.js";
+import {Context} from "../../index";
+import {observer} from "mobx-react-lite";
 
 const Home = () => {
+    const {store} = useContext(Context);
+    const toggleModal = () => store.setRegisterModal(!store.registerModal);
     useEffect(() => {
         document.body.classList.toggle("index-page");
         // Specify how to clean up after this effect:
@@ -56,7 +60,7 @@ const Home = () => {
                                             className="btn-link"
                                             color="success"
                                             href="#pablo"
-                                            onClick={(e) => e.preventDefault()}
+                                            onClick={toggleModal}
                                             size="sm"
                                         >
                                             <i className="tim-icons icon-minimal-right" />
@@ -67,7 +71,7 @@ const Home = () => {
                                             <Button
                                                 className="btn-icon btn-simple btn-round btn-neutral"
                                                 color="default"
-                                                href="#pablo"
+                                                href={process.env.REACT_APP_TWITTER_LINK}
                                                 onClick={(e) => e.preventDefault()}
                                             >
                                                 <i className="fab fa-twitter" />
@@ -75,15 +79,15 @@ const Home = () => {
                                             <Button
                                                 className="btn-icon btn-simple btn-round btn-neutral"
                                                 color="default"
-                                                href="#pablo"
+                                                href={process.env.REACT_APP_INSTAGRAMM_LINK}
                                                 onClick={(e) => e.preventDefault()}
                                             >
-                                                <i className="fab fa-dribbble" />
+                                                <i className="fab fa-instagram" />
                                             </Button>
                                             <Button
                                                 className="btn-icon btn-simple btn-round btn-neutral"
                                                 color="default"
-                                                href="#pablo"
+                                                href={process.env.REACT_APP_FACEBOOK_LINK}
                                                 onClick={(e) => e.preventDefault()}
                                             >
                                                 <i className="fab fa-facebook" />
@@ -217,14 +221,6 @@ const Home = () => {
                                             impenetrable foliage of my trees, and but a few stray.
                                         </p>
                                         <br />
-                                        <a
-                                            className="font-weight-bold text-info mt-5"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}
-                                        >
-                                            Show all{" "}
-                                            <i className="tim-icons icon-minimal-right text-info" />
-                                        </a>
                                     </div>
                                 </Col>
                             </Row>
@@ -418,7 +414,7 @@ const Home = () => {
                                         </Row>
                                     </CardBody>
                                     <CardFooter className="text-center">
-                                        <Button className="btn-simple" color="primary">
+                                        <Button onClick={toggleModal} className="btn-simple" color="primary">
                                             Get plan
                                         </Button>
                                     </CardFooter>
@@ -450,7 +446,7 @@ const Home = () => {
                                         </Row>
                                     </CardBody>
                                     <CardFooter className="text-center">
-                                        <Button className="btn-simple" color="success">
+                                        <Button onClick={toggleModal} className="btn-simple" color="success">
                                             Get plan
                                         </Button>
                                     </CardFooter>
@@ -482,7 +478,7 @@ const Home = () => {
                                         </Row>
                                     </CardBody>
                                     <CardFooter className="text-center">
-                                        <Button className="btn-simple" color="info">
+                                        <Button onClick={toggleModal} className="btn-simple" color="info">
                                             Get plan
                                         </Button>
                                     </CardFooter>
@@ -491,10 +487,36 @@ const Home = () => {
                         </Row>
                     </Container>
                 </section>
+                <Modal isOpen={store.registerModal} toggle={toggleModal}>
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">
+                            Register
+                        </h5>
+                        <button
+                            type="button"
+                            className="close"
+                            data-dismiss="modal"
+                            aria-hidden="true"
+                            onClick={toggleModal}
+                        >
+                            <i className="tim-icons icon-simple-remove" />
+                        </button>
+                    </div>
+                    <ModalBody>
+                        <p>
+                            To register please contact our support service
+                        </p>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={toggleModal}>
+                            Ok
+                        </Button>
+                    </ModalFooter>
+                </Modal>
                 <Footer />
             </div>
         </>
     );
 };
 
-export default Home;
+export default observer(Home);

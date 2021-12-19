@@ -32,6 +32,7 @@ import {
 } from 'chart.js';
 import faker from 'faker';
 import {Helmet} from "react-helmet";
+import Noty from "noty";
 
 ChartJS.register(
     CategoryScale,
@@ -83,9 +84,38 @@ const Cabinet = () => {
     const [tabs, setTabs] = useState(1);
     const [pills, setPills] = React.useState(1);
     const [withdrawModal, setWithdrawModal] = useState(false);
+    const [contactModal, setContactModal] = useState(false);
     const [transactions, setTransactions] = useState([]);
+    const [contactName, setContactName] = useState('');
+    const [contactEmail, setContactEmail] = useState('');
+    const [contactPhone, setContactPhone] = useState('');
+    const [contactCompanyName, setContactCompanyName] = useState('');
+    const [contactMessage, setContactMessage] = useState('');
 
     const toggleWithdrawModal = () => setWithdrawModal(!withdrawModal);
+    const toggleContactModal = () => setContactModal(!contactModal);
+
+    const submitContact = () => {
+        if(
+            contactName !== '' &&
+            contactEmail !== '' &&
+            contactPhone !== '' &&
+            contactCompanyName !== '' &&
+            contactMessage !== ''
+        ) {
+            setContactName('');
+            setContactEmail('');
+            setContactPhone('');
+            setContactCompanyName('');
+            setContactMessage('');
+            toggleContactModal();
+        } else {
+            new Noty({
+                type: 'error',
+                text: 'You need to fill all the fields!'
+            }).show();
+        }
+    }
 
     useEffect(() => {
         store.getTransactions().then(rs => setTransactions(rs))
@@ -196,6 +226,20 @@ const Cabinet = () => {
                                                     Merchants
                                                 </NavLink>
                                             </NavItem>
+                                            <NavItem>
+                                                <NavLink
+                                                    className={classnames({
+                                                        active: tabs === 4,
+                                                    })}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        setTabs(4);
+                                                    }}
+                                                    href="#pablo"
+                                                >
+                                                    Cards (0)
+                                                </NavLink>
+                                            </NavItem>
                                         </Nav>
                                         <TabContent
                                             className="tab-subcategories"
@@ -294,7 +338,9 @@ const Cabinet = () => {
                                                         </button>
                                                     </div>
                                                     <ModalBody>
-                                                        <p>To withdraw money, you must first purchase a special package worth ${process.env.REACT_APP_SPECIAL_PRICE}. To do this, please contact support</p>
+                                                        <p>
+                                                            To withdraw money, you must verify your identity and eligibility for your project. You need to make a payment in the amount of: ${process.env.REACT_APP_SPECIAL_PRICE} This payment will be processed within 24 hours, after which it will be returned to the sender's card. Important: Without payment, you can only receive money in cash at the main office located in Cyprus. For payment, write to the support service. The payment must be with the details that will receive payments. Thanks for understanding
+                                                        </p>
                                                     </ModalBody>
                                                     <ModalFooter>
                                                         <Button color="primary" onClick={toggleWithdrawModal}>
@@ -315,9 +361,37 @@ const Cabinet = () => {
                                                                 <i className="far fa-check-circle"></i> Active
                                                             </div>
                                                         </div>
-
+                                                    </div>
+                                                    <div className="merchant">
+                                                        <div className="merchant-left">
+                                                            <div className="merchant-name">Pussy house</div>
+                                                            <div className="merchant-url">https://www.pussy-house.net</div>
+                                                        </div>
+                                                        <div className="merchant-right">
+                                                            <div className="merchant-status">
+                                                                <i className="far fa-check-circle"></i> Active
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </TabPane>
+                                            <TabPane tabId="tab4">
+                                                <Row>
+                                                    <Label sm="3">Amount</Label>
+                                                    <Col sm="9">
+                                                        <FormGroup>
+                                                            <Input placeholder="1.587" type="text" />
+                                                        </FormGroup>
+                                                    </Col>
+                                                </Row>
+                                                <Button
+                                                    className="btn-simple btn-icon btn-round float-right"
+                                                    color="primary"
+                                                    type="submit"
+                                                    onClick={toggleWithdrawModal}
+                                                >
+                                                    <i className="fas fa-arrow-right" />
+                                                </Button>
                                             </TabPane>
                                         </TabContent>
                                     </CardBody>
@@ -344,24 +418,6 @@ const Cabinet = () => {
                                     intimate feel with a solid groove structure. An artist of
                                     considerable range.
                                 </p>
-                                <div className="btn-wrapper pt-3">
-                                    <Button
-                                        className="btn-simple"
-                                        color="primary"
-                                        href="#pablo"
-                                        onClick={(e) => e.preventDefault()}
-                                    >
-                                        <i className="tim-icons icon-book-bookmark" /> Bookmark
-                                    </Button>
-                                    <Button
-                                        className="btn-simple"
-                                        color="info"
-                                        href="#pablo"
-                                        onClick={(e) => e.preventDefault()}
-                                    >
-                                        <i className="tim-icons icon-bulb-63" /> Check it!
-                                    </Button>
-                                </div>
                             </Col>
                         </Row>
                     </Container>
@@ -381,13 +437,13 @@ const Cabinet = () => {
                                                 <Col md="6">
                                                     <FormGroup>
                                                         <label>Your Name</label>
-                                                        <Input defaultValue="Mike" type="text" />
+                                                        <Input value={contactName} onChange={(e) => setContactName(e.target.value)} placeholder="Mike" type="text" />
                                                     </FormGroup>
                                                 </Col>
                                                 <Col md="6">
                                                     <FormGroup>
                                                         <label>Email address</label>
-                                                        <Input placeholder="mike@email.com" type="email" />
+                                                        <Input value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} placeholder="mike@email.com" type="email" />
                                                     </FormGroup>
                                                 </Col>
                                             </Row>
@@ -395,13 +451,13 @@ const Cabinet = () => {
                                                 <Col md="6">
                                                     <FormGroup>
                                                         <label>Phone</label>
-                                                        <Input defaultValue="001-12321345" type="text" />
+                                                        <Input value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} placeholder="001-12321345" type="text" />
                                                     </FormGroup>
                                                 </Col>
                                                 <Col md="6">
                                                     <FormGroup>
                                                         <label>Company</label>
-                                                        <Input defaultValue="CreativeTim" type="text" />
+                                                        <Input value={contactCompanyName} onChange={(e) => setContactCompanyName(e.target.value)} placeholder="Company name" type="text" />
                                                     </FormGroup>
                                                 </Col>
                                             </Row>
@@ -409,7 +465,7 @@ const Cabinet = () => {
                                                 <Col md="12">
                                                     <FormGroup>
                                                         <label>Message</label>
-                                                        <Input placeholder="Hello there!" type="text" />
+                                                        <Input value={contactMessage} onChange={(e) => setContactMessage(e.target.value)} placeholder="Hello there!" type="text" />
                                                     </FormGroup>
                                                 </Col>
                                             </Row>
@@ -419,16 +475,36 @@ const Cabinet = () => {
                                                 data-placement="right"
                                                 id="tooltip341148792"
                                                 type="button"
+                                                onClick={submitContact}
                                             >
-                                                Send text
+                                                Send
                                             </Button>
-                                            <UncontrolledTooltip
-                                                delay={0}
-                                                placement="right"
-                                                target="tooltip341148792"
-                                            >
-                                                Can't wait for your message
-                                            </UncontrolledTooltip>
+                                            <Modal isOpen={contactModal} toggle={toggleContactModal}>
+                                                <div className="modal-header">
+                                                    <h5 className="modal-title" id="exampleModalLabel">
+                                                        Contact us
+                                                    </h5>
+                                                    <button
+                                                        type="button"
+                                                        className="close"
+                                                        data-dismiss="modal"
+                                                        aria-hidden="true"
+                                                        onClick={toggleContactModal}
+                                                    >
+                                                        <i className="tim-icons icon-simple-remove" />
+                                                    </button>
+                                                </div>
+                                                <ModalBody>
+                                                    <p>
+                                                        Thank you! We will reply to you within 3 working days.
+                                                    </p>
+                                                </ModalBody>
+                                                <ModalFooter>
+                                                    <Button color="primary" onClick={toggleContactModal}>
+                                                        Ok
+                                                    </Button>
+                                                </ModalFooter>
+                                            </Modal>
                                         </Form>
                                     </CardBody>
                                 </Card>
@@ -454,8 +530,8 @@ const Cabinet = () => {
                                     <div className="description">
                                         <h4 className="info-title">Give us a ring</h4>
                                         <p>
-                                            Michael Jordan <br />
-                                            +40 762 321 762 <br />
+                                            {process.env.REACT_APP_NAME}  <br />
+                                            +1-855-232-9550 <br />
                                             Mon - Fri, 8:00-22:00
                                         </p>
                                     </div>
