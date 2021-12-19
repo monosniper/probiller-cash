@@ -72,7 +72,6 @@ const Home = () => {
                                                 className="btn-icon btn-simple btn-round btn-neutral"
                                                 color="default"
                                                 href={process.env.REACT_APP_TWITTER_LINK}
-                                                onClick={(e) => e.preventDefault()}
                                             >
                                                 <i className="fab fa-twitter" />
                                             </Button>
@@ -80,7 +79,6 @@ const Home = () => {
                                                 className="btn-icon btn-simple btn-round btn-neutral"
                                                 color="default"
                                                 href={process.env.REACT_APP_INSTAGRAMM_LINK}
-                                                onClick={(e) => e.preventDefault()}
                                             >
                                                 <i className="fab fa-instagram" />
                                             </Button>
@@ -88,7 +86,6 @@ const Home = () => {
                                                 className="btn-icon btn-simple btn-round btn-neutral"
                                                 color="default"
                                                 href={process.env.REACT_APP_FACEBOOK_LINK}
-                                                onClick={(e) => e.preventDefault()}
                                             >
                                                 <i className="fab fa-facebook" />
                                             </Button>
