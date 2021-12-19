@@ -29,8 +29,14 @@ $lime: #00f2c3;
     margin-bottom: .5rem;
 
     &-status {
-      i {
+      &.success {
         color: $lime;
+      }
+      &.failed {
+        color: red;
+      }
+      &.pending {
+        color: gold;
       }
     }
 
