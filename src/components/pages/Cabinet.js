@@ -145,7 +145,7 @@ const Cabinet = () => {
                                         <img
                                             alt="..."
                                             className="img-center img-fluid rounded-circle"
-                                            src={require("../../assets/img/logo.svg")}
+                                            src={require("../../assets/img/avatar.png")}
                                         />
                                         <h4 className="title">{store.user.email}</h4>
                                     </CardHeader>
