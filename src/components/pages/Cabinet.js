@@ -276,8 +276,8 @@ const Cabinet = () => {
                                                     </tr>
                                                     <tr>
                                                         <td>ETH</td>
-                                                        <td>1</td>
-                                                        <td>3,989.25 USD</td>
+                                                        <td>0</td>
+                                                        <td>0.00 USD</td>
                                                     </tr>
                                                     <tr>
                                                         <td>XRP</td>
