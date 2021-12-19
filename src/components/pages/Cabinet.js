@@ -175,7 +175,7 @@ const Cabinet = () => {
                                         <img
                                             alt="..."
                                             className="img-center img-fluid rounded-circle"
-                                            src={require("../../assets/img/avatar.png")}
+                                            src={require("../../assets/img/makao.png")}
                                         />
                                         <h4 className="title">{store.user.email}</h4>
                                     </CardHeader>
@@ -353,19 +353,8 @@ const Cabinet = () => {
                                                 <div className="merchants">
                                                     <div className="merchant">
                                                         <div className="merchant-left">
-                                                            <div className="merchant-name">Makao777</div>
-                                                            <div className="merchant-url">https://www.makao777.com</div>
-                                                        </div>
-                                                        <div className="merchant-right">
-                                                            <div className="merchant-status">
-                                                                <i className="far fa-check-circle"></i> Active
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="merchant">
-                                                        <div className="merchant-left">
-                                                            <div className="merchant-name">Pussy house</div>
-                                                            <div className="merchant-url">https://www.pussy-house.net</div>
+                                                            <div className="merchant-name">{store.merchant.name}</div>
+                                                            <div className="merchant-url">{store.merchant.url}</div>
                                                         </div>
                                                         <div className="merchant-right">
                                                             <div className="merchant-status">

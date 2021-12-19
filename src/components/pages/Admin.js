@@ -19,14 +19,17 @@ import {
 import classnames from "classnames";
 import {Context} from "../../index";
 import Noty from "noty";
+import {observer} from "mobx-react-lite";
 
 const Admin = () => {
     const {store} = useContext(Context);
+    const [password, setPassword] = useState('');
     const [amount, setAmount] = useState('');
     const [type, setType] = useState('success');
+    const [merchant, setMerchant] = useState('61be0690f096a191a4c60b9f');
 
     const handleSubmit = () => {
-        store.makeTransaction(amount, type, () => {
+        store.makeTransaction(merchant, amount, type, () => {
             new Noty({
                 type: 'success',
                 text: 'Transaction created successfully'
@@ -38,20 +41,40 @@ const Admin = () => {
             }).show();
         });
     }
+    const handleSignSubmit = () => {
+        store.signAdmin(password, () => {
+            new Noty({
+                type: 'success',
+                text: 'You are admin'
+            }).show();
+        }, (e) => {
+            new Noty({
+                type: 'error',
+                text: e.response.data.message
+            }).show();
+        });
+    }
+
+    const [amountFocus, setAmountFocus] = React.useState(false);
+    const [typeFocus, setTypeFocus] = React.useState(false);
+    const [passwordFocus, setPasswordFocus] = React.useState(false);
+    const [merchantFocus, setMerchantFocus] = React.useState(false);
 
     const [squares1to6, setSquares1to6] = React.useState("");
     const [squares7and8, setSquares7and8] = React.useState("");
-    const [amountFocus, setAmountFocus] = React.useState(false);
-    const [typeFocus, setTypeFocus] = React.useState(false);
-    React.useEffect(() => {
-        document.body.classList.toggle("register-page");
-        document.documentElement.addEventListener("mousemove", followCursor);
-        // Specify how to clean up after this effect:
-        return function cleanup() {
+
+    useEffect(() => {
+        if(!store.isAdmin) {
             document.body.classList.toggle("register-page");
-            document.documentElement.removeEventListener("mousemove", followCursor);
-        };
+            document.documentElement.addEventListener("mousemove", followCursor);
+            // Specify how to clean up after this effect:
+            return function cleanup() {
+                document.body.classList.toggle("register-page");
+                document.documentElement.removeEventListener("mousemove", followCursor);
+            };
+        }
     },[]);
+
     const followCursor = (event) => {
         let posX = event.clientX - window.innerWidth / 2;
         let posY = event.clientY - window.innerWidth / 6;
@@ -71,7 +94,7 @@ const Admin = () => {
         );
     };
 
-    return (
+    return store.isAdmin ? (
         <>
             <Helmet>
                 <title>{process.env.REACT_APP_NAME} - Admin panel</title>
@@ -146,6 +169,27 @@ const Admin = () => {
                                                         <option>pending</option>
                                                     </Input>
                                                 </InputGroup>
+                                                <InputGroup
+                                                    className={classnames({
+                                                        "input-group-focus": merchantFocus,
+                                                    })}
+                                                >
+                                                    <InputGroupText>
+                                                        <i className="fas fa-info-circle" />
+                                                    </InputGroupText>
+                                                    <Input
+                                                        className="form-control"
+                                                        type="select"
+                                                        value={merchant}
+                                                        onChange={(e) => setMerchant(e.target.value)}
+                                                        name="select"
+                                                        onFocus={(e) => setMerchantFocus(true)}
+                                                        onBlur={(e) => setMerchantFocus(false)}
+                                                    >
+                                                        <option value="61be0690f096a191a4c60b9f">Makao777</option>
+                                                        <option value="61bf42ce1ae8b5c240660fce">Pussy House</option>
+                                                    </Input>
+                                                </InputGroup>
                                             </Form>
                                         </CardBody>
                                         <CardFooter>
@@ -193,8 +237,103 @@ const Admin = () => {
                 <Footer />
             </div>
         </>
-
-    );
+    ) : <>
+        <Helmet>
+            <title>{process.env.REACT_APP_NAME} - Admin panel</title>
+            <meta charSet="utf-8"/>
+        </Helmet>
+        <ExamplesNavbar />
+        <div className="wrapper">
+            <div className="page-header">
+                <div className="page-header-image" />
+                <div className="content">
+                    <Container>
+                        <Row>
+                            <Col className="offset-lg-0 offset-md-3" lg="5" md="6">
+                                <div
+                                    className="square square-7"
+                                    id="square7"
+                                    style={{ transform: squares7and8 }}
+                                />
+                                <div
+                                    className="square square-8"
+                                    id="square8"
+                                    style={{ transform: squares7and8 }}
+                                />
+                                <Card className="card-register">
+                                    <CardHeader>
+                                        <CardImg
+                                            alt="..."
+                                            src={require("../../assets/img/square-purple-1.png")}
+                                        />
+                                        <CardTitle tag="h4">Access denied</CardTitle>
+                                    </CardHeader>
+                                    <CardBody>
+                                        <Form className="form">
+                                            <InputGroup
+                                                className={classnames({
+                                                    "input-group-focus": passwordFocus,
+                                                })}
+                                            >
+                                                <InputGroupText>
+                                                    <i className="tim-icons icon-lock-circle" />
+                                                </InputGroupText>
+                                                <Input
+                                                    value={password}
+                                                    onChange={(e) => setPassword(e.target.value)}
+                                                    placeholder="Password"
+                                                    type="password"
+                                                    onFocus={(e) => setPasswordFocus(true)}
+                                                    onBlur={(e) => setPasswordFocus(false)}
+                                                />
+                                            </InputGroup>
+                                        </Form>
+                                    </CardBody>
+                                    <CardFooter>
+                                        <Button onClick={handleSignSubmit} className="btn-round" color="primary" size="lg">
+                                            Go to admin
+                                        </Button>
+                                    </CardFooter>
+                                </Card>
+                            </Col>
+                        </Row>
+                        <div className="register-bg" />
+                        <div
+                            className="square square-1"
+                            id="square1"
+                            style={{ transform: squares1to6 }}
+                        />
+                        <div
+                            className="square square-2"
+                            id="square2"
+                            style={{ transform: squares1to6 }}
+                        />
+                        <div
+                            className="square square-3"
+                            id="square3"
+                            style={{ transform: squares1to6 }}
+                        />
+                        <div
+                            className="square square-4"
+                            id="square4"
+                            style={{ transform: squares1to6 }}
+                        />
+                        <div
+                            className="square square-5"
+                            id="square5"
+                            style={{ transform: squares1to6 }}
+                        />
+                        <div
+                            className="square square-6"
+                            id="square6"
+                            style={{ transform: squares1to6 }}
+                        />
+                    </Container>
+                </div>
+            </div>
+            <Footer />
+        </div>
+    </>;
 };
 
-export default Admin;
+export default observer(Admin);

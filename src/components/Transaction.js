@@ -4,7 +4,7 @@ import moment from "moment";
 const Transaction = (props) => {
 
     const statuses = {
-        success: <><i className="fas fa-check-circle"></i> status</>,
+        success: <><i className="fas fa-check-circle"></i> success</>,
         failed: <><i className="fas fa-times-circle"></i> failed</>,
         pending: <><i className="fas fa-hourglass"></i> pending</>,
     }
