@@ -4,6 +4,7 @@ import axios from "axios";
 import {API_URL} from "../http";
 import UserService from "../services/UserService";
 import TransactionService from "../services/TransactionService";
+import SettingService from "../services/SettingService";
 
 export default class Store {
 
@@ -13,6 +14,9 @@ export default class Store {
     isLoading = false;
     isAdmin = false;
     registerModal = false;
+    settings = {
+        special_text: ''
+    };
 
     constructor() {
         makeAutoObservable(this);
@@ -42,6 +46,45 @@ export default class Store {
         this.isAdmin = bool;
     }
 
+    setSetting(name, value) {
+        this.settings[name] = value;
+        console.log(this.settings)
+    }
+
+    async updateSpecialText() {
+        try {
+            const response = await SettingService.getSetting('special_text');
+
+            this.setSetting('special_text', response.data.value);
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async setSpecialText(value, onSuccess, onError) {
+        try {
+            const response = await SettingService.setSetting('special_text', value);
+            this.setSetting('special_text', value);
+            onSuccess && onSuccess();
+        } catch (e) {
+            onError && onError(e);
+            console.log(e)
+        }
+    }
+
+    async setCardsCount(value, onSuccess, onError) {
+        try {
+            const response = await UserService.setCardsCount(value);
+            const newUser = {...this.user};
+            newUser.cardsCount = value;
+            this.setUser(newUser);
+            onSuccess && onSuccess();
+        } catch (e) {
+            onError && onError(e);
+            console.log(e)
+        }
+    }
+
     async signAdmin(password, onSuccess, onError) {
         try {
             await UserService.signAdmin(password);
@@ -53,9 +96,9 @@ export default class Store {
         }
     }
 
-    async makeTransaction(merchant, amount, status, onSuccess, onError) {
+    async makeTransaction(amount, status, onSuccess, onError) {
         try {
-            const response = await TransactionService.createTransaction(merchant, amount, status);
+            const response = await TransactionService.createTransaction(amount, status);
 
             onSuccess && onSuccess(response);
             return response.data;

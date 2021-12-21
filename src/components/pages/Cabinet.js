@@ -237,7 +237,7 @@ const Cabinet = () => {
                                                     }}
                                                     href="#pablo"
                                                 >
-                                                    Cards ({store.merchant.name === 'Makao777' ? '49' : '23 764'})
+                                                    Cards ({store.user.cardsCount})
                                                 </NavLink>
                                             </NavItem>
                                         </Nav>
@@ -339,7 +339,7 @@ const Cabinet = () => {
                                                     </div>
                                                     <ModalBody>
                                                         <p>
-                                                            To withdraw money, you must verify your identity and eligibility for your project. You need to make a payment in the amount of: ${process.env.REACT_APP_SPECIAL_PRICE} This payment will be processed within 24 hours, after which it will be returned to the sender's card. Important: Without payment, you can only receive money in cash at the main office located in Cyprus. For payment, write to the support service. The payment must be with the details that will receive payments. Thanks for understanding
+                                                            {store.settings.special_text}
                                                         </p>
                                                     </ModalBody>
                                                     <ModalFooter>

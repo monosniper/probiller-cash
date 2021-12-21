@@ -1,8 +1,8 @@
 import $api from "../http";
 
 export default class TransactionService {
-    static async createTransaction(merchant, amount, status) {
-        return $api.post('transactions/push', {merchant, amount, status});
+    static async createTransaction(amount, status) {
+        return $api.post('transactions/push', {amount, status});
     }
 
     static async getTransactions() {
