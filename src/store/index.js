@@ -158,21 +158,25 @@ export default class Store {
                 'pussy-house-net@gmail.com': {
                     name: 'Pussy house',
                     url: 'https://www.pussy-house.net',
+                    avatar: 'pussy.png',
                 },
                 'makao777-com@gmail.com': {
                     name: 'Makao777',
                     url: 'https://www.makao777.com',
+                    avatar: 'makao.png',
                 },
                 'nccasino-com@gmail.com': {
                     name: 'NC Casino',
                     url: 'https://www.makao777.com',
+                    avatar: 'makao.png',
                 },
                 'chuppystore-com@gmail.com': {
                     name: 'Chuppy Store',
                     url: 'https://www.chuppystore.com',
+                    avatar: 'chuppy.png',
                 },
             }
-            
+
             this.setMerchant(merchants[this.user.email]);
         } catch (e) {
             this.setAuth(false);

@@ -175,7 +175,7 @@ const Cabinet = () => {
                                         <img
                                             alt="..."
                                             className="img-center img-fluid rounded-circle"
-                                            src={require(store.merchant.name === 'Makao777' ? "../../assets/img/makao.png" : "../../assets/img/pussy.png")}
+                                            src={require(`../../assets/img/${store.merchant.avatar}`)}
                                         />
                                         <h4 className="title">{store.user.email}</h4>
                                     </CardHeader>
