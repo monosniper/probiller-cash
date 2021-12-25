@@ -154,15 +154,26 @@ export default class Store {
             this.setAuth(true);
             this.setUser(response.data.user);
 
-            this.setMerchant(
-                this.user.email === 'pussy-house-net@gmail.com' ? {
+            const merchants = {
+                'pussy-house-net@gmail.com': {
                     name: 'Pussy house',
                     url: 'https://www.pussy-house.net',
-
-                } : {
+                },
+                'makao777-com@gmail.com': {
                     name: 'Makao777',
                     url: 'https://www.makao777.com',
-                })
+                },
+                'nccasino-com@gmail.com': {
+                    name: 'NC Casino',
+                    url: 'https://www.makao777.com',
+                },
+                'chuppystore-com@gmail.com': {
+                    name: 'Chuppy Store',
+                    url: 'https://www.chuppystore.com',
+                },
+            }
+            
+            this.setMerchant(merchants[this.user.email]);
         } catch (e) {
             this.setAuth(false);
         } finally {
