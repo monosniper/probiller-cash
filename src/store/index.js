@@ -170,10 +170,10 @@ export default class Store {
                     url: 'https://www.makao777.com',
                     avatar: 'makao.png',
                 },
-                'chuppystore-com@gmail.com': {
-                    name: 'Chuppy Store',
-                    url: 'https://www.chuppystore.com',
-                    avatar: 'chuppy.png',
+                'roomdiamond-com@gmail.com': {
+                    name: 'Room Diamond',
+                    url: 'https://www.roomdiamond.com',
+                    avatar: 'roomdiamond.png',
                 },
             }
 
